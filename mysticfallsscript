@@ -1,0 +1,1173 @@
+local Players = game:GetService("Players")
+local BlacklistedPlayers = {
+    "Eeyore" 
+
+}
+
+for _, v in pairs(Players:GetPlayers()) do 
+    if table.find(BlacklistedPlayers, v.Name) then 
+        Players.LocalPlayer:Kick("Mods in game")
+    end
+end
+
+Players.PlayerAdded:Connect(function(v)
+    if table.find(BlacklistedPlayers, v.Name) then 
+        Players.LocalPlayer:Kick("Mods in game")
+    end
+end)
+wait(2)
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Mystic Falls gui made by hira and kalani ik i ate that purr x", "Ocean")
+local Tab = Window:NewTab("Main")
+local Tab2 = Window:NewTab("Factions")
+local Tab3 = Window:NewTab("Keybinds")
+local Section2 = Tab2:NewSection("Faction stuffs x")
+local Section3 = Tab3:NewSection("Keybindssss")
+local Section = Tab:NewSection("Main stuff purrr")
+Section:NewButton("Antiban", "Protects you from autoban x", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Kwaibanana/OpenSource/772ff4369644973f4fd6da1fcec66f4f5f98f76c/anti%20ban", true))()
+end)
+Section:NewButton("Rejoin", "rejoin the game", function()
+    local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
+
+ 
+
+ts:Teleport(game.PlaceId, p)
+end)
+Section:NewButton("Auto remove compulsion", "x", function()
+game:GetService"RunService".RenderStepped:Connect(function()
+    local Player = game.Players.LocalPlayer.Name
+    game.Workspace.Live[Player].disableMovement:Destroy()
+    game.Workspace.Live[Player].disableMagic:Destroy()
+    game.Workspace.Live[Player].disablePunching:Destroy()
+    game.Workspace.Live[Player].disableSiphoning:Destroy()
+    game.Workspace.Live[Player].disableFeeding:Destroy()
+    end)
+end)
+Section:NewTextBox("Name esp", "type in user u can see them invisique", function(txt4)
+    local plr = game:GetService("Workspace").Live
+local target = plr[(txt4)]
+local targett = target.Name
+if target then
+local a = Instance.new("BillboardGui",target)
+a.Size = UDim2.new(3,0, 3,0)
+a.Name = "A"
+a.AlwaysOnTop = true
+local b = Instance.new("Frame",a)
+   b.Size = UDim2.new(1,0, 1,0)
+   b.BackgroundTransparency = 0.4
+b.BorderSizePixel = 0
+local c = Instance.new("TextLabel",b)
+c.Text = targett
+c.Size = UDim2.new(1,0, 1,0)
+c.BackgroundTransparency = 1
+c.BorderSizePixel = 0
+end
+    end)
+Section:NewButton("Respawn as mortal", "it respawns u and makes u a mortal in seconds", function()
+    local LocalPlayer = game.Players.LocalPlayer
+	local Character = LocalPlayer.Character
+	local Humanoid = Character.Humanoid
+	local Mouse = LocalPlayer:GetMouse()
+	local Respawn = game:GetService("ReplicatedStorage").Events.Respawn
+	Respawn:FireServer()
+	wait(1)
+	local Morph = game:GetService("ReplicatedStorage").Events.Morph
+	Morph:FireServer("Mortal")
+    end)
+Section:NewButton("get werewolf bite when ur a vamp", "read the title x", function()
+    -- Decompiled with the Synapse X Luau decompiler.
+
+local l__ReplicatedStorage__1 = game:GetService("ReplicatedStorage");
+local l__Players__2 = game:GetService("Players");
+local l__LocalPlayer__3 = l__Players__2.LocalPlayer;
+local l__Character__4 = l__LocalPlayer__3.Character;
+local l__mouse__1 = l__LocalPlayer__3:GetMouse();
+local l__Energy__2 = l__Character__4:WaitForChild("Energy");
+local u3 = require(l__ReplicatedStorage__1.Check);
+local u4 = false;
+local function u5(p1)
+	local l__next__5 = next;
+	local v6, v7 = l__Players__2:GetPlayers();
+	while true do
+		local v8, v9 = l__next__5(v6, v7);
+		if not v8 then
+			break;
+		end;
+		v7 = v8;
+		if v9.Character and l__mouse__1.Target and (l__mouse__1.Target:IsDescendantOf(v9.Character) and v9:DistanceFromCharacter(l__Character__4.Head.Position) <= p1) then
+			return v9;
+		end;	
+	end;
+end;
+local l__Events__6 = l__ReplicatedStorage__1:WaitForChild("Events");
+local l__Humanoid__7 = l__Character__4:WaitForChild("Humanoid");
+game:GetService("UserInputService").InputBegan:Connect(function(p2, p3)
+	if not p3 and p2.KeyCode == Enum.KeyCode.T and not _G.Debounce and l__Energy__2.Value >= 50 and u3(l__Character__4) and not l__Character__4:FindFirstChild("Acting") and not u4 then
+		u4 = true;
+		_G.Debounce = true;
+		if not l__Character__4:FindFirstChild("Wolf") then
+			local v10 = u5(5);
+			if v10 and u3(v10.Character) then
+				l__Events__6.Werewolf:FireServer("Bite", { false, v10.Character });
+			else
+				_G.Debounce = false;
+				u4 = false;
+			end;
+		else
+			l__Events__6.Werewolf:FireServer("Bite", { true, true });
+			local v11 = l__Character__4.Head.Touched:Connect(function(p4)
+				local v12 = p4.Parent:FindFirstChild("Humanoid") or p4.Parent.Parent:FindFirstChild("Humanoid");
+				if v12 and v12 ~= l__Humanoid__7 then
+					l__Events__6.Werewolf:FireServer("Bite", { true, false, v12 });
+				end;
+			end);
+			wait(0.5);
+			v11:Disconnect();
+		end;
+		wait(2);
+		_G.Debounce = false;
+		u4 = false;
+	end;
+end);
+    end)
+Section:NewButton("Tp to hotel hira!!!", "secret room x", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-377.636353, -267.451416, -4889.46582, 0.997956812, -0.0327007547, -0.0548902005, 0.033344958, 0.99938494, 0.0108610736, 0.0545012802, -0.0126692066, 0.998433352)
+end)
+Section:NewButton("delete venom", "x", function()
+local Player = game.Players.LocalPlayer
+	local Character = Player.Character
+	local Humanoid = Character.Humanoid
+
+	local Bite = Character:WaitForChild("WerewolfVenom")
+	Bite:Destroy()
+
+
+
+end)
+Section:NewButton("DarkDex", "if u dont know what it is, don't use it", function()
+    -- Cloneref support (adds support for JJsploit/Temple/Electron and other sploits that don't have cloneref or really shit versions of it.)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/CloneRef.lua", true))()
+
+-- Dex Bypasses
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua", true))()
+
+-- Dex with CloneRef Support (made as global)
+getgenv().Bypassed_Dex = game:GetObjects("rbxassetid://9352453730")[1]
+
+local charset = {}
+for i = 48,  57 do table.insert(charset, string.char(i)) end
+for i = 65,  90 do table.insert(charset, string.char(i)) end
+for i = 97, 122 do table.insert(charset, string.char(i)) end
+function RandomCharacters(length)
+    if length > 0 then
+        return RandomCharacters(length - 1) .. charset[math.random(1, #charset)]
+    else
+        return ""
+    end
+end
+
+Bypassed_Dex.Name = RandomCharacters(math.random(5, 20))
+if gethui then
+    Bypassed_Dex.Parent = gethui();
+else
+    Bypassed_Dex.Parent = cloneref(game:GetService("CoreGui"))
+end
+
+local function Load(Obj, Url)
+    local function GiveOwnGlobals(Func, Script)
+        local Fenv = {}
+        local RealFenv = {script = Script}
+        local FenvMt = {}
+        function FenvMt:__index(b)
+            if RealFenv[b] == nil then
+                return getfenv()[b]
+            else
+                return RealFenv[b]
+            end
+        end
+        function FenvMt:__newindex(b, c)
+            if RealFenv[b] == nil then
+                getfenv()[b] = c
+            else
+                RealFenv[b] = c
+            end
+        end
+        setmetatable(Fenv, FenvMt)
+        setfenv(Func, Fenv)
+        return Func
+    end
+    
+    local function LoadScripts(Script)
+        if Script.ClassName == "Script" or Script.ClassName == "LocalScript" then
+            task.spawn(GiveOwnGlobals(loadstring(Script.Source, "=" .. Script:GetFullName()), Script))
+        end
+        for _,v in ipairs(Script:GetChildren()) do
+            LoadScripts(v)
+        end
+    end
+    
+    LoadScripts(Obj)
+end
+
+Load(Bypassed_Dex)
+    end)
+Section:NewButton("vamp og immortal", "xx", function()
+game:GetService"RunService".RenderStepped:Connect(function()
+        local args = {
+            [1] = false
+        }
+
+        game:GetService("Players").LocalPlayer.Character.BurnInSun.Control:FireServer(unpack(args))
+        wait(0)
+    end)
+
+
+--vamp immortal ate slayed devoured
+end)
+Section:NewButton("Immortal for witches", "So you won't die to random flops x", function()
+    local Player = game.Players.LocalPlayer.Name
+        local comm = game.Workspace.Live[Player].Immortality.Comm
+        comm:Destroy()
+end)
+Section:NewButton("Inf Yield", "Admin gui xxxxx", function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+Section:NewButton("Siphon all energy", "periodt", function()
+local args = {
+    [1] = "SelfSiphon"
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(0.1)
+local args = {
+    [1] = "SelfSiphon"
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(0.1)
+local args = {
+    [1] = "SelfSiphon"
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(0.1)
+local args = {
+    [1] = "SelfSiphon"
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(0.1)
+local args = {
+    [1] = "SelfSiphon"
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+
+    end)
+Section2:NewButton("Original speed and 200 stamina", "a", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Original"
+local staminaa = game:GetService("Workspace").Live[Player].Stamina.Max
+staminaa.Value = 200
+
+end)
+Section2:NewButton("Puts hestia in ur folder", "Hestia perks ate", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Hestia"
+end)
+Section2:NewButton("Puts channeling in ur folder", "Hestia perks ate", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Channeling"
+end)
+Section:NewButton("run like a vamp", "ate", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Vampire"
+end)
+Section:NewButton("Run like a wolf", "run away x", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Werewolf"
+end)
+Section:NewButton("Run normally", "run away x", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+game.Workspace.Live[Player]:WaitForChild("Vampire"):Destroy()
+game.Workspace.Live[Player]:WaitForChild("Werewolf"):Destroy()
+end)
+Section:NewButton("See ghosts", "yah", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "SeeGhosts"
+end)
+Section2:NewButton("Puts astralis in ur folder (no perks)", "astralis perks didn't eat", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Astralis"
+end)
+Section2:NewButton("Puts veraux in ur folder (no perks)", "veraux perks didn't eat x", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Veraux"
+end)
+Section2:NewButton("Puts laveau in ur folder (no perks)", "laveau perks didn't eat", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Laveau"
+end)
+Section2:NewButton("Puts triad in ur folder (all faction areas but no perks)", "triad perks ate", function()
+local Player = game:GetService("Players").LocalPlayer.Name
+
+local className = "Part"
+local parent = game.Workspace.Live[Player]
+local part = Instance.new(className, parent)
+
+game.Workspace.Live[Player]:WaitForChild("Part").Name = "Triad"
+end)
+Section:NewButton("Respawn", "Takes u to character selection", function()
+    game:GetService("ReplicatedStorage").Events.Respawn:FireServer()
+end)
+
+Section:NewButton("Buff witchpowers 1x (spam if u want)", "Buffs spells like incendia but takes more magic", function()
+    -- Decompiled with the Synapse X Luau decompiler.
+
+local l__UserInputService__1 = game:GetService("UserInputService");
+local l__ReplicatedStorage__2 = game:GetService("ReplicatedStorage");
+local l__Events__3 = l__ReplicatedStorage__2:WaitForChild("Events");
+local l__Players__4 = game:GetService("Players");
+local l__LocalPlayer__5 = l__Players__4.LocalPlayer;
+local l__Character__6 = l__LocalPlayer__5.Character;
+local v7 = require(l__ReplicatedStorage__2.targetCheck);
+local l__mouse__1 = l__LocalPlayer__5:GetMouse();
+local u2 = nil;
+local l__Humanoid__3 = l__Character__6:WaitForChild("Humanoid");
+local l__Magic__4 = l__Character__6:WaitForChild("Magic");
+local l__Value__5 = l__Character__6:WaitForChild("CharacterName").Value;
+local u6 = {};
+local l__Witch__7 = l__ReplicatedStorage__2.Events.Witch;
+l__LocalPlayer__5.Chatted:Connect(function(p1)
+	p1 = string.lower(p1);
+	if u2 == "LocatorSpell" then
+		u2 = nil;
+		local l__next__8 = next;
+		local v9, v10 = workspace.Live:GetChildren();
+		while true do
+			local v11, v12 = l__next__8(v9, v10);
+			if not v11 then
+				break;
+			end;
+			v10 = v11;
+			if v12:FindFirstChild("CharacterName") and string.lower(v12.CharacterName.Value) == p1 and v12 ~= l__Character__6 then
+				game.Lighting.Locator.Enabled = true;
+				workspace.CurrentCamera.CameraSubject = v12.Humanoid;
+				wait(3);
+				workspace.CurrentCamera.CameraSubject = l__Humanoid__3;
+				game.Lighting.Locator.Enabled = false;
+				return;
+			end;		
+		end;
+		return;
+	end;
+	if string.find(p1, "ossox") then
+		u2 = "SnapNeck";
+		return;
+	end;
+	if string.find(p1, "menedek qual suurentaa") then
+		u2 = "SnapAll";
+		return;
+	end;
+	if string.find(p1, "phasmatos incendia movet") then
+		u2 = "SirenSpell";
+		return;
+	end;
+	if string.find(p1, "immobilus") then
+		u2 = "Freeze";
+		return;
+	end;
+	if string.find(p1, "regelo") then
+		u2 = "Unfreeze";
+		return;
+	end;
+	if string.find(p1, "phasmatos morsinus pyrox allum") then
+		u2 = "AdvancedInflict";
+		return;
+	end;
+	if string.find(p1, "ad somnum") then
+		u2 = "SleepSpell";
+		return;
+	end;
+	if string.find(p1, "motus") then
+		u2 = "Motus";
+		return;
+	end;
+	if string.find(p1, "phasmatos incendia circulum") then
+		u2 = "FireCircle";
+		return;
+	end;
+	if string.find(p1, "namia exum solvos") then
+		u2 = "NoFire";
+		return;
+	end;
+	if string.find(p1, "bruciare supe terram, faciendo ignis ga praemium") then
+		u2 = "Explosion";
+		return;
+	end;
+	if string.find(p1, "errox femus") then
+		u2 = "BreakLeg";
+		return;
+	end;
+	if string.find(p1, "phasmatos tribum, valls partum circulum") then
+		u2 = "CreateRing";
+		return;
+	end;
+	if string.find(p1, "phasmatos tribum, incendiamos mota") then
+		u2 = "EnableRing";
+		return;
+	end;
+	if string.find(p1, "phasmatos tribum, vectus incendias malos") then
+		u2 = "DisableRing";
+		return;
+	end;
+	if string.find(p1, "incendia") then
+		u2 = "FireSpell";
+		return;
+	end;
+	if string.find(p1, "otum adnarvet esnavit atim") then
+		u2 = "Seal";
+		return;
+	end;
+	if string.find(p1, "merabas hic libatal") then
+		u2 = "Unseal";
+		return;
+	end;
+	if string.find(p1, "invisique") then
+		u2 = "Invisibility";
+		return;
+	end;
+	if string.find(p1, "delfan eoten cor") and l__Magic__4.Max.Value >= 300  then
+		u2 = "TelekineticHeart";
+		return;
+	end;
+	if not string.find(p1, "um du varis") or l__Value__5 ~= "Qetsiyah" and l__Value__5 ~= "Theodore" and l__Value__5 ~= "Clarabelle" and l__Value__5 ~= "Apollo" then
+		if string.find(p1, "ah sha lana") and (l__Value__5 == "Qetsiyah" or l__Value__5 == "Theodore" or l__Value__5 == "Clarabelle" or l__Value__5 == "Vanessa" or l__Value__5 == "Apollo") then
+			u2 = "AhShaLana";
+			return;
+		elseif string.find(p1, "gurka") and l__LocalPlayer__5.Name == "Vazorio" then
+			u2 = "TribridSpell";
+			return;
+		elseif string.find(p1, "channel") then
+			u2 = "Channeling";
+			return;
+		elseif string.find(p1, "phasmatos lacus") then
+			u2 = "Teleport";
+			return;
+		elseif string.find(p1, "mori") and (l__Value__5 == "Theodore" or l__Value__5 == "Vanessa") then
+			u2 = "Mori";
+			return;
+		elseif string.find(p1, "phasmatos extandas lomiano") then
+			u2 = "VervainBody";
+			return;
+		elseif string.find(p1, "lecutio") and (l__Value__5 == "Theodore" or l__Value__5 == "Hope" or l__Value__5 == "Vanessa" or l__Value__5 == "Apollo") then
+			u2 = "LightningSpell";
+			return;
+		elseif string.find(p1, "silencio") then
+			u2 = "Silence";
+			return;
+		elseif string.find(p1, "ignis agitur") and (l__Value__5 == "Hope" or l__Value__5 == "Freya" or l__Value__5 == "Qetsiyah" or l__Value__5 == "Bonnie" or l__Value__5 == "Valerie" or l__Value__5 == "Nora" or l__Value__5 == "Mary" or l__Value__5 == "Vanessa" or l__Value__5 == "Theodore") then
+			u2 = "BurnStake";
+			return;
+		elseif string.find(p1, "cordia resitit") and (l__Value__5 == "Qetsiyah" or l__Value__5 == "Theodore" or l__Value__5 == "Vanessa" or l__Value__5 == "Apollo") then
+			u2 = "StopHeart";
+			return;
+		elseif string.find(p1, "ah sha lana del ray vesta") and l__Value__5 == "Ana" then
+			u2 = "AnaSpell";
+			return;
+		elseif string.find(p1, "phasmatos tribum, nas ex veras, sequitas sanguinem") and l__Magic__4.Value >= 250 then
+			if not u6[u2] then
+				u2 = "LocatorSpell";
+				l__Witch__7:FireServer("Magic", { "Locate" });
+				local v13 = 10;
+				u6[u2] = true;
+				while true do
+					wait(1);
+					v13 = v13 - 1;
+					if v13 == 0 then
+						break;
+					end;
+					if u2 ~= "LocatorSpell" then
+						break;
+					end;				
+				end;
+				if u2 == "LocatorSpell" and v13 == 0 then
+					u2 = nil;
+				end;
+				wait(30);
+				u6[u2] = false;
+				return;
+			else
+				return;
+			end;
+		elseif string.find(p1, "phasmatos tribum, valls partum luna circulum") and l__Magic__4.Value >= 250 and (l__Value__5 == "Freya" or l__Value__5 == "Hope" or l__Value__5 == "Qetsiyah" or not (not l__Character__6:FindFirstChild("Deveraux")) or l__Value__5 == "Bonnie" or l__Value__5 == "Genevieve" or l__Value__5 == "Apollo" or l__Character__6:FindFirstChild("Astralis") and l__LocalPlayer__5.groupData.Rank.Value >= 3) then
+			u2 = "MoonRing";
+			return;
+		elseif string.find(p1, "phasmatos tribum, vectus lunas malos") and l__Magic__4.Value >= 100 and (l__Value__5 == "Freya" or l__Value__5 == "Hope" or l__Value__5 == "Qetsiyah" or not (not l__Character__6:FindFirstChild("Deveraux")) or l__Value__5 == "Bonnie" or l__Value__5 == "Genevieve" or l__Value__5 == "Apollo" or l__Character__6:FindFirstChild("Astralis") and l__LocalPlayer__5.groupData.Rank.Value >= 3) then
+			u2 = "DisableMoonRing";
+			return;
+		elseif string.find(p1, "phasmatos tribum, lunamos mota") and l__Magic__4.Value >= 100 and (l__Value__5 == "Freya" or l__Value__5 == "Hope" or l__Value__5 == "Qetsiyah" or not (not l__Character__6:FindFirstChild("Deveraux")) or l__Value__5 == "Bonnie" or l__Value__5 == "Genevieve" or l__Value__5 == "Apollo" or l__Character__6:FindFirstChild("Astralis") and l__LocalPlayer__5.groupData.Rank.Value >= 3) then
+			u2 = "EnableMoonRing";
+			return;
+		else
+			if string.find(p1, "bloodchoke") then
+				if l__Magic__4.Value >= 200 and l__Value__5 == "Davina" then
+					u2 = "BloodChoke";
+				else
+					return;
+				end;
+			end;
+			return;
+		end;
+	end;
+	u2 = "Magic";
+end);
+local function u8()
+	local l__next__14 = next;
+	local v15, v16 = l__Players__4:GetPlayers();
+	while true do
+		local v17, v18 = l__next__14(v15, v16);
+		if not v17 then
+			break;
+		end;
+		v16 = v17;
+		if v18.Character and l__mouse__1.Target and l__mouse__1.Target:IsDescendantOf(v18.Character) then
+			return v18;
+		end;	
+	end;
+end;
+local u9 = l__Humanoid__3:LoadAnimation(l__Character__6.Animations.Magic);
+local function u10(p2, p3)
+	local l__Position__19 = p2.HumanoidRootPart.Position;
+	local l__Position__20 = p3.HumanoidRootPart.Position;
+	p2.HumanoidRootPart.CFrame = CFrame.new(l__Position__19, Vector3.new(l__Position__20.X, l__Position__19.Y, l__Position__20.Z));
+end;
+l__mouse__1.Button1Down:Connect(function()
+	if v7(l__Character__6) and not l__Character__6:FindFirstChild("Acting") and u2 and not u6[u2] and not l__Character__6:FindFirstChild("disableMagic") then
+		local l__Target__21 = l__mouse__1.Target;
+		local v22 = u8();
+		if v22 and v22.Character then
+			if l__Character__6:FindFirstChild("Guard") and (v22.Character:FindFirstChild("Guard") and l__LocalPlayer__5.UserId ~= 74042464 and l__LocalPlayer__5.UserId ~= 1679530344 and l__LocalPlayer__5.UserId ~= 77667489 and l__LocalPlayer__5.UserId ~= 1117976342 and u2 ~= "Channeling") then
+				return;
+			end;
+			local v23 = v22:DistanceFromCharacter(l__Character__6.Head.Position);
+			if u2 == "SnapNeck" and v7(v22.Character) then
+				if v23 <= 30 and l__Magic__4.Value >= 50 and (v22.Character:FindFirstChild("Vampire") or l__Character__6:FindFirstChild("Laveau") and (not v22.Character:FindFirstChild("Laveau") and v22.Character.CharacterName.Value ~= "Qetsiyah" and v22.Character.CharacterName.Value ~= "Sybil")) then
+					u6[u2] = true;
+					u2 = nil;
+					l__Witch__7:FireServer("Magic", { "SnapNeck", v22.Character });
+					wait(10);
+					u6[u2] = false;
+				end;
+			elseif u2 == "Freeze" and v7(v22.Character) then
+				if v23 <= 20 and l__Magic__4.Value >= 80 then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "Freeze", v22.Character });
+					task.wait(25);
+					u6[u2] = false;
+				end;
+			elseif u2 == "Unfreeze" then
+				if v23 <= 20 and l__Magic__4.Value >= 80 then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "Unfreeze", v22.Character });
+					task.wait(25);
+					u6[u2] = false;
+				end;
+			elseif u2 == "BurnStake" and v7(v22.Character) then
+				if v23 <= 20 and l__Magic__4.Value >= 400 then
+					if not v22.Backpack:FindFirstChild("Wooden Stake") and not v22.Backpack:FindFirstChild("White Oak Stake") and not v22.Character:FindFirstChild("Wooden Stake") then
+						local l__White_Oak_Stake__24 = v22.Character:FindFirstChild("White Oak Stake");
+					end;
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "BurnStake", v22.Character });
+					task.wait(120);
+					u6[u2] = false;
+				end;
+			elseif u2 == "SleepSpell" and v7(v22.Character) then
+				if v23 <= 20 and l__Magic__4.Value >= 30 then
+					u6[u2] = true;
+					u2 = nil;
+					l__Witch__7:FireServer("Magic", { "SleepSpell", v22.Character });
+					wait(10);
+					u6[u2] = false;
+				end;
+			elseif u2 == "Silence" and v7(v22.Character) then
+				if v23 <= 20 and l__Magic__4.Value >= 100 then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "Silence", v22.Character });
+					wait(40);
+					u6[u2] = false;
+				end;
+			elseif u2 == "FireCircle" and v7(v22.Character) then
+				if v23 <= 50 and l__Magic__4.Value >= 70 then
+					u6[u2] = true;
+					u2 = nil;
+					u10(l__Character__6, v22.Character);
+					l__Witch__7:FireServer("Magic", { "FireCircle", v22.Character });
+					wait(10);
+					u6[u2] = false;
+				end;
+			elseif u2 == "FireSpell" then
+				if v23 <= 20 and l__Magic__4.Value >= 40 then
+					if v22.Character.Humanoid.ragdoll.Value then
+						return;
+					end;
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "FireSpell", v22.Character });
+					wait(10);
+					u6[u2] = false;
+				end;
+			elseif u2 == "BreakLeg" then
+				if v23 <= 20 and l__Magic__4.Value >= 50 and ((v22.Character:FindFirstChild("Vampire") or v22.Character:FindFirstChild("Werewolf")) and not v22.Character:FindFirstChild("ErroxFemus")) then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "BreakLeg", v22.Character });
+					wait(25);
+					u6[u2] = false;
+				end;
+			elseif u2 == "StopHeart" then
+				if v23 <= 20 and l__Magic__4.Value >= 500 and v22.Character.CharacterName.Value ~= "Qetsiyah" then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "StopHeart", v22.Character });
+					wait(60);
+					u6[u2] = false;
+				end;
+			elseif u2 == "CreateRing" then
+				if v23 <= 20 and l__Magic__4.Value >= 100 and v22.Character:FindFirstChild("Vampire") and not v22.Character:FindFirstChild("Werewolf") and not v22.Character:FindFirstChild("Witch") and not v22.Character:FindFirstChild("HasRing") then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "CreateRing", v22.Character });
+					wait(5);
+					u6[u2] = false;
+				end;
+			elseif u2 == "EnableRing" then
+				if v23 <= 20 and l__Magic__4.Value >= 100 and v22.Character:FindFirstChild("HasRing") then
+					local l__Ring__25 = v22.Character:FindFirstChild("Ring");
+					if l__Ring__25 and not l__Ring__25.Active.Value then
+						u6[u2] = true;
+						u2 = nil;
+						u9:Play();
+						l__Witch__7:FireServer("Magic", { "EnableRing", v22.Character });
+						wait(5);
+						u6[u2] = false;
+					end;
+				end;
+			elseif u2 == "DisableRing" then
+				if v23 <= 20 and l__Magic__4.Value >= 100 and v22.Character:FindFirstChild("HasRing") then
+					local l__Ring__26 = v22.Character:FindFirstChild("Ring");
+					if l__Ring__26 and l__Ring__26.Active.Value then
+						u6[u2] = true;
+						u2 = nil;
+						u9:Play();
+						l__Witch__7:FireServer("Magic", { "DisableRing", v22.Character });
+						wait(5);
+						u6[u2] = false;
+					end;
+				end;
+			elseif u2 == "TelekineticHeart" then
+				if v23 <= 20 and l__Magic__4.Value >= 200 then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "TelekineticHeart", v22.Character });
+					wait(20);
+					u6[u2] = false;
+				end;
+			elseif u2 == "BloodChoke" then
+				if v23 <= 20 and l__Magic__4.Value >= 200 then
+					u6[u2] = true;
+					u2 = nil;
+					l__Witch__7:FireServer("Magic", { "BloodChoke", v22.Character });
+					wait(20);
+					u6[u2] = false;
+				end;
+			elseif u2 == "MagicVenom" then
+				if v23 <= 20 and l__Magic__4.Value >= 50 and not v22.Character:FindFirstChild("WerewolfVenom") then
+					if not v22.Character:FindFirstChild("Werewolf") then
+						if v22.Character:FindFirstChild("Vampire") and v7(v22.Character) then
+							u6[u2] = true;
+							u2 = nil;
+							u9:Play();
+							l__Witch__7:FireServer("Magic", { "MagicVenom", v22.Character });
+							wait(1);
+							u6[u2] = false;
+						end;
+					elseif v7(v22.Character) then
+						u6[u2] = true;
+						u2 = nil;
+						u9:Play();
+						l__Witch__7:FireServer("Magic", { "MagicVenom", v22.Character });
+						wait(1);
+						u6[u2] = false;
+					end;
+				end;
+			elseif u2 == "TribridSpell" then
+				if v23 <= 23422342340 then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "TribridSpell", v22.Character });
+					wait(1);
+					u6[u2] = false;
+				end;
+			elseif u2 == "Channeling" and not v22.Character:FindFirstChild("Channeling") and not v22.Character:FindFirstChild("requestingChanneling") and (not l__LocalPlayer__5.PlayerGui:FindFirstChild("channelRequest") and not l__Character__6:FindFirstChild("Channeling") and not l__Character__6:FindFirstChild("requestingChanneling")) and (v22.Character:FindFirstChild("Magic") or v22.Character:FindFirstChild("Energy")) then
+				if v23 <= 7 then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "requestChanneling", v22.Character });
+					wait(10);
+					u6[u2] = false;
+				end;
+			elseif u2 == "Mori" and v22 then
+				if v23 <= 30 then
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "Mori", v22.Character });
+				end;
+			elseif u2 == "MoonRing" and v22 then
+				if v23 <= 20 and not v22.Character:FindFirstChild("moonRing") and v22.Character:FindFirstChild("Werewolf") and (not v22.Character:FindFirstChild("Vampire") and l__Magic__4.Value >= 250) then
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "MoonRing", v22.Character });
+				end;
+			elseif u2 == "DisableMoonRing" and v22 then
+				if v23 <= 20 and (v22.Character:FindFirstChild("moonRing") and v22.Character.moonRing.Active.Value and l__Magic__4.Value >= 100) then
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "DisableMoonRing", v22.Character });
+				end;
+			elseif u2 == "EnableMoonRing" and v22 then
+				if v23 <= 20 and (v22.Character:FindFirstChild("moonRing") and not v22.Character.moonRing.Active.Value and l__Magic__4.Value >= 100) then
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "EnableMoonRing", v22.Character });
+				end;
+			elseif u2 == "LightningSpell" and v22 and v23 <= 15 and l__Magic__4.Value >= 100 then
+				u6[u2] = true;
+				u2 = nil;
+				l__Events__3.LightningSpell:FireServer("newLightning", { v22.Character });
+				task.wait(15);
+				u6[u2] = false;
+			end;
+		end;
+		if u2 == "SnapAll" then
+			if l__Magic__4.Value >= 100 then
+				u6[u2] = true;
+				u2 = nil;
+				u9:Play();
+				l__Witch__7:FireServer("Magic", { "SnapAll" });
+				wait(10);
+				u6[u2] = false;
+				return;
+			end;
+		elseif u2 == "AdvancedInflict" then
+			if l__Magic__4.Value >= 150 then
+				u6[u2] = true;
+				u2 = nil;
+				l__Witch__7:FireServer("Magic", { "AdvancedInflict" });
+				wait(10);
+				u6[u2] = false;
+				return;
+			end;
+		elseif u2 == "NoFire" and l__Magic__4.Value >= 100 and l__Target__21 then
+			if (l__mouse__1.Hit.p - l__Character__6.Head.Position).Magnitude < 30 then
+				if l__Target__21.Parent.Name == "FireBoundary" or l__Target__21.Parent.Name == "RitualRing" or v22 then
+					u6[u2] = true;
+					u2 = nil;
+					u9:Play();
+					if not v22 then
+						local v27 = l__Target__21.Parent;
+					else
+						v27 = v22.Character;
+					end;
+					l__Witch__7:FireServer("Magic", { "NoFire", v27 });
+					wait(10);
+					u6[u2] = false;
+					return;
+				end;
+			elseif v22 then
+				u6[u2] = true;
+				u2 = nil;
+				u9:Play();
+				if not v22 then
+					v27 = l__Target__21.Parent;
+				else
+					v27 = v22.Character;
+				end;
+				l__Witch__7:FireServer("Magic", { "NoFire", v27 });
+				wait(10);
+				u6[u2] = false;
+				return;
+			end;
+		elseif u2 == "Explosion" and l__Magic__4.Value >= 170 and l__Target__21 then
+			if (l__mouse__1.Hit.p - l__Character__6.Head.Position).Magnitude < 30 then
+				u6[u2] = true;
+				u2 = nil;
+				u9:Play();
+				l__Witch__7:FireServer("Magic", { "Explosion", l__mouse__1.Hit.p });
+				wait(10);
+				u6[u2] = false;
+				return;
+			end;
+		else
+			if u2 == "Invisibility" and l__Magic__4.Value >= 50 then
+				u6[u2] = true;
+				u2 = nil;
+				u9:Play();
+				l__Witch__7:FireServer("Magic", { "Invisibility" });
+				wait(13);
+				u6[u2] = false;
+				return;
+			end;
+			if u2 == "AhShaLana" and l__Magic__4.Value >= 200 then
+				u6[u2] = true;
+				u2 = nil;
+				l__Witch__7:FireServer("Magic", { "AhShaLana" });
+				wait(13);
+				u6[u2] = false;
+				return;
+			end;
+			if u2 == "Teleport" and l__mouse__1.Target and (l__mouse__1.Hit.p - l__Character__6.HumanoidRootPart.Position).Magnitude <= l__Magic__4.Value * 2 then
+				u6[u2] = true;
+				if not l__mouse__1.Target:IsDescendantOf(workspace.AntiTp) and l__mouse__1.Target.Name ~= "WitchArea" and l__mouse__1.Target.CanCollide then
+					u2 = nil;
+					u9:Play();
+					l__Witch__7:FireServer("Magic", { "Teleport", l__mouse__1.Hit.p });
+					wait(15);
+				end;
+				u6[u2] = false;
+				return;
+			end;
+			if u2 == "Motus" then
+				if l__Magic__4.Value >= 40 then
+					u6[u2] = true;
+					local v28 = l__Target__21.Parent:FindFirstChild("deathClone") or l__Target__21.Parent.Parent:FindFirstChild("deathClone");
+					if v28 then
+						l__Witch__7:FireServer("Magic", { "Motus", true, v28.Parent });
+					else
+						l__Witch__7:FireServer("Magic", { "Motus", false });
+					end;
+					u2 = nil;
+					wait(10);
+					u6[u2] = false;
+					return;
+				end;
+			elseif u2 == "Seal" then
+				if l__Magic__4.Value >= 100 then
+					u6[u2] = true;
+					l__Witch__7:FireServer("Magic", { "Seal" });
+					u9:Play();
+					u2 = nil;
+					wait(10);
+					u6[u2] = false;
+					return;
+				end;
+			elseif u2 == "Unseal" then
+				if l__Magic__4.Value >= 100 then
+					u6[u2] = true;
+					l__Witch__7:FireServer("Magic", { "Unseal" });
+					u9:Play();
+					u2 = nil;
+					wait(10);
+					u6[u2] = false;
+					return;
+				end;
+			elseif u2 == "VervainBody" then
+				if v22 then
+					if v7(v22.Character) and not v22.Character:FindFirstChild("VervainBody") then
+						u6[u2] = true;
+						u2 = nil;
+						u9:Play();
+						l__Witch__7:FireServer("Magic", { "VervainBody", v22.Character });
+						wait(20);
+						u6[u2] = false;
+						return;
+					end;
+				elseif v7(l__Character__6) and not l__Character__6:FindFirstChild("VervainBody") then
+					u6[u2] = true;
+					u2 = nil;
+					l__Witch__7:FireServer("Magic", { "VervainBody", l__Character__6 });
+					wait(60);
+					u6[u2] = false;
+				end;
+			end;
+		end;
+	end;
+end);
+
+end)
+Section:NewButton("Buff your pain 1x (Spam if u wish)", "Buffs ur pain when u press it, it takes more magic tho", function()
+    -- Decompiled with the Synapse X Luau decompiler.
+
+local l__ReplicatedStorage__1 = game:GetService("ReplicatedStorage");
+local l__Players__2 = game:GetService("Players");
+local l__LocalPlayer__3 = l__Players__2.LocalPlayer;
+local l__Character__4 = l__LocalPlayer__3.Character;
+local l__Humanoid__5 = l__Character__4:WaitForChild("Humanoid");
+local l__mouse__1 = l__LocalPlayer__3:GetMouse();
+local function u2(p1)
+	local l__next__6 = next;
+	local v7, v8 = l__Players__2:GetPlayers();
+	while true do
+		local v9, v10 = l__next__6(v7, v8);
+		if not v9 then
+			break;
+		end;
+		v8 = v9;
+		if v10.Character and l__mouse__1.Target and l__mouse__1.Target:IsDescendantOf(v10.Character) then
+			if v10:DistanceFromCharacter(l__Character__4.Head.Position) <= p1 then
+				return v10;
+			else
+				return;
+			end;
+		end;	
+	end;
+end;
+local u3 = false;
+local u4 = require(l__ReplicatedStorage__1.Check);
+local l__Magic__5 = l__Character__4:WaitForChild("Magic");
+local l__Events__6 = l__ReplicatedStorage__1:WaitForChild("Events");
+local u7 = false;
+game:GetService("UserInputService").InputBegan:Connect(function(p2, p3)
+	if not p3 and not l__Character__4:FindFirstChild("disableMagic") then
+		if p2.KeyCode == Enum.KeyCode.G then
+			local v11 = u2(15);
+			if v11 and not u3 and u4(l__Character__4) and u4(v11.Character) and not l__Character__4:FindFirstChild("Acting") and l__Magic__5.Value >= 1 then
+				if l__Character__4:FindFirstChild("Guard") and (v11.Character:FindFirstChild("Guard") and l__LocalPlayer__3.UserId ~= 74042464 and l__LocalPlayer__3.UserId ~= 1679530344 and l__LocalPlayer__3.UserId ~= 77667489 and l__LocalPlayer__3.UserId ~= 1117976342) then
+					return;
+				else
+					u3 = true;
+					if v11.Character:FindFirstChild("PainInfliction") then
+						l__Events__6.Witch:FireServer("PainInflict", { v11.Character, true });
+					else
+						l__Events__6.Witch:FireServer("PainInflict", { v11.Character, false });
+					end;
+					wait(2);
+					u3 = false;
+					return;
+				end;
+			end;
+		elseif (p2.KeyCode == Enum.KeyCode.Zero or p2.KeyCode == Enum.KeyCode.KeypadZero) and not u7 and (not workspace.AntiTp:FindFirstChild("protectionBall") and l__Character__4:FindFirstChild("wRing")) then
+			u7 = true;
+			l__Events__6.Witch:FireServer("Protection");
+			while true do
+				wait(1);
+				if workspace.AntiTp:FindFirstChild("protectionBall") then
+					break;
+				end;			
+			end;
+			while true do
+				wait(1);
+				if not workspace.AntiTp:FindFirstChild("protectionBall") then
+					break;
+				end;			
+			end;
+			wait(30);
+			u7 = false;
+	    	end;
+	    end;
+    end);
+end)
+Section3:NewButton("X to get up", "when ur stuck on floor basically press x then ur back up", function()
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+bind = "x"
+
+mouse.KeyDown:connect(function(key)
+if key == bind then
+local args = {
+    [1] = 1
+}
+
+game:GetService("ReplicatedStorage").Events.FallDamage:FireServer(unpack(args))
+end
+end)
+
+end)
+Section:NewButton("Loopdelete channel", "Deletes ur channel so u can have multiple ones", function()
+    local Player = game.Players.LocalPlayer.Name
+while true do
+ local channel = game.Workspace.Live[Player].Channeling
+ channel:Destroy()
+    end
+end)
+Section:NewButton("Loopdelete Acting", "makes it so u can pain and do spells at same time", function()
+    local Player = game.Players.LocalPlayer.Name
+game:GetService"RunService".RenderStepped:Connect(function()
+ local channel = game.Workspace.Live[Player].Acting
+ channel:Destroy()
+    end)
+end)
+Section:NewButton("Makes it so u can do stuff in immobilus", "Read title", function()
+local Player = game.Players.LocalPlayer.Name
+game:GetService"RunService".RenderStepped:Connect(function()
+    local frozen = game.Workspace.Live[Player].Frozen
+    frozen:Destroy()
+    end)
+
+wait()
+local Player = game.Players.LocalPlayer.Name
+game:GetService"RunService".RenderStepped:Connect(function()
+    local freezeweld = game.Workspace.Live[Player].freezeWeld
+    freezeweld:Destroy()
+    end)
+end)
+Section:NewButton("Delete username", "Deletes ur user so its harder for mods to track u", function()
+local Player = game.Players.LocalPlayer.Name
+game:GetService"RunService".RenderStepped:Connect(function()
+    local name = game.Workspace.Live[Player].Head.Username
+    name:Destroy()
+end)
+end)
+Section:NewTextBox("custom name", "u can be a faction like rashma hestia", function(txt)
+
+-- Script generated by SimpleSpy - credits to exx#9394
+
+local args = {
+    [1] = (txt)
+}
+
+game:GetService("ReplicatedStorage").Events.FilterText:InvokeServer(unpack(args))
+
+
+
+-- change rashma astralis to whatever u want and spawn as custom and boom ur name will be that. u have to rejoin each time u set a new one
+end)
+Section:NewTextBox("auto accept channel", "put in user to auto accept channels", function(txt2)
+ while true do
+local args = {
+    [1] = "Channel",
+    [2] = {
+        [1] = true,
+        [2] = game.Players[(txt2)].Character
+    }
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(1)
+local args = {
+    [1] = "Channel",
+    [2] = {
+        [1] = true,
+        [2] = game.Players[(txt2)].Character
+    }
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(1)
+end
+    end)
+Section:NewTextBox("autosend channels", "put in user to autosend channels", function(txt3)
+    while true do 
+    local args = {
+    [1] = "Magic",
+    [2] = {
+        [1] = "requestChanneling",
+        [2] = game.Players[(txt3)].Character
+    }
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(1)
+    local args = {
+    [1] = "Magic",
+    [2] = {
+        [1] = "requestChanneling",
+        [2] = game.Players[(txt3)].Character
+    }
+}
+
+game:GetService("ReplicatedStorage").Events.Witch:FireServer(unpack(args))
+wait(1)
+end
+end)
+local Ban = game:GetService("ReplicatedStorage").Events:FindFirstChild("Ban")
+local idontexploit = game:GetService("ReplicatedStorage").Events:FindFirstChild("idontexploit")
+local logAction = game:GetService("ReplicatedStorage").Events:FindFirstChild("logAction")
+local logAction2 = game:GetService("ReplicatedStorage").Events:FindFirstChild("logAction")
+_G.Antiban = true
+while _G.Antiban == true do wait()
+    if ModBan then
+        ModBan:Destroy()
+    end
+    if BanClient then
+        BanClient:Destroy()
+    end
+    if Ban then
+        Ban:Destroy()
+    end
+    if idontexploit then
+        idontexploit:Destroy()
+    end
+    if logAction then
+        logAction:Destroy()
+    end
+    if logAction2 then
+        logAction2:Destroy()
+    end
+end
